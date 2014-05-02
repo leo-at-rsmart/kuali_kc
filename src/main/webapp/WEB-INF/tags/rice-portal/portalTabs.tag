@@ -14,7 +14,7 @@
  limitations under the License.
 --%>
 <%@ include file="/WEB-INF/jsp/kraTldHeader.jsp"%>
-
+<%@ taglib uri="/WEB-INF/tlds/portal-func.tld" prefix="prtlfunc"%>
 <%@ attribute name="selectedTab" required="true"%>
 <%@ attribute name="channelTitle" required="false" %>
 
@@ -24,48 +24,58 @@
       <ul class="nav">
         <a class="brand" href="${ConfigProperties.application.url}/portal.do">Kuali Coeus</a>
 	<%-- Researcher Menu --%>
-	<c:if test='${selectedTab == "portalResearcherBody"}'>
-        <li class="active"><a href="portal.do?selectedTab=portalResearcherBody" title="Researcher">Researcher</a></li>
-    </c:if>
-    <c:if test='${selectedTab != "portalResearcherBody" && channelTitle != "Document Search" && channelTitle != "Action List"}'>
-        <c:if test="${empty selectedTab}">
-            <li class="active"><a href="portal.do?selectedTab=portalResearcherBody" title="Researcher">Researcher</a></li>
-        </c:if>
-        <c:if test="${!empty selectedTab}">
-            <li><a href="portal.do?selectedTab=portalResearcherBody" title="Researcher">Researcher</a></li>
-        </c:if>
-    </c:if>
+	<c:if test="${prtlfunc:showByAffiliateType('FCLTY,STAFF')}">
+		<c:if test='${selectedTab == "portalResearcherBody"}'>
+	        <li class="active"><a href="portal.do?selectedTab=portalResearcherBody" title="Researcher">Researcher</a></li>
+	    </c:if>
+	    <c:if test='${selectedTab != "portalResearcherBody" && channelTitle != "Document Search" && channelTitle != "Action List"}'>
+	        <c:if test="${empty selectedTab}">
+	            <li class="active"><a href="portal.do?selectedTab=portalResearcherBody" title="Researcher">Researcher</a></li>
+	        </c:if>
+	        <c:if test="${!empty selectedTab}">
+	            <li><a href="portal.do?selectedTab=portalResearcherBody" title="Researcher">Researcher</a></li>
+	        </c:if>
+	    </c:if>
+	</c:if>
     
     <%-- Unit --%>
-    <c:if test='${selectedTab == "portalUnitBody"}'>
-        <li class="active"><a href="portal.do?selectedTab=portalUnitBody" title="Unit">Unit</a></li>
-    </c:if> 
-    <c:if test='${selectedTab != "portalUnitBody"}'>
-        <li><a href="portal.do?selectedTab=portalUnitBody" title="Unit">Unit</a></li>
+    <c:if test="${prtlfunc:showByAffiliateType('STAFF')}">
+	    <c:if test='${selectedTab == "portalUnitBody"}'>
+	        <li class="active"><a href="portal.do?selectedTab=portalUnitBody" title="Unit">Unit</a></li>
+	    </c:if> 
+	    <c:if test='${selectedTab != "portalUnitBody"}'>
+	        <li><a href="portal.do?selectedTab=portalUnitBody" title="Unit">Unit</a></li>
+	    </c:if>
     </c:if>
     
     <%-- Central Admin --%>
-    <c:if test='${selectedTab == "portalCentralAdminBody"}'>
-        <li class="active"><a href="portal.do?selectedTab=portalCentralAdminBody" title="Central Admin">Central Admin</a></li>
-    </c:if> 
-    <c:if test='${selectedTab != "portalCentralAdminBody"}'>
-        <li><a href="portal.do?selectedTab=portalCentralAdminBody" title="Central Admin">Central Admin</a></li>
+    <c:if test="${prtlfunc:showByAffiliateType('STAFF')}">
+	    <c:if test='${selectedTab == "portalCentralAdminBody"}'>
+	        <li class="active"><a href="portal.do?selectedTab=portalCentralAdminBody" title="Central Admin">Central Admin</a></li>
+	    </c:if> 
+	    <c:if test='${selectedTab != "portalCentralAdminBody"}'>
+	        <li><a href="portal.do?selectedTab=portalCentralAdminBody" title="Central Admin">Central Admin</a></li>
+	    </c:if>
     </c:if>
     
     <%-- Maintenance --%>
-    <c:if test='${selectedTab == "portalMaintenanceBody"}'>
-        <li class="active"><a href="portal.do?selectedTab=portalMaintenanceBody" title="Maintenance">Maintenance</a></li>
-    </c:if> 
-    <c:if test='${selectedTab != "portalMaintenanceBody"}'>
-        <li><a href="portal.do?selectedTab=portalMaintenanceBody" title="Maintenance">Maintenance</a></li>
+    <c:if test="${prtlfunc:showByAffiliateType('STAFF')}">
+	    <c:if test='${selectedTab == "portalMaintenanceBody"}'>
+	        <li class="active"><a href="portal.do?selectedTab=portalMaintenanceBody" title="Maintenance">Maintenance</a></li>
+	    </c:if> 
+	    <c:if test='${selectedTab != "portalMaintenanceBody"}'>
+	        <li><a href="portal.do?selectedTab=portalMaintenanceBody" title="Maintenance">Maintenance</a></li>
+	    </c:if>
     </c:if>
     
     <%-- System Admin --%>
-    <c:if test='${selectedTab == "portalSystemAdminBody"}'>
-        <li class="active"><a href="portal.do?selectedTab=portalSystemAdminBody" title="System Admin">System Admin</a></li>
-    </c:if> 
-    <c:if test='${selectedTab != "portalSystemAdminBody"}'>
-        <li><a href="portal.do?selectedTab=portalSystemAdminBody" title="System Admin">System Admin</a></li>
+    <c:if test="${prtlfunc:showByAffiliateType('STAFF')}">
+	    <c:if test='${selectedTab == "portalSystemAdminBody"}'>
+	        <li class="active"><a href="portal.do?selectedTab=portalSystemAdminBody" title="System Admin">System Admin</a></li>
+	    </c:if> 
+	    <c:if test='${selectedTab != "portalSystemAdminBody"}'>
+	        <li><a href="portal.do?selectedTab=portalSystemAdminBody" title="System Admin">System Admin</a></li>
+	    </c:if>
     </c:if>
 
         <li class="feedback right-nav">
