@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kim.api.identity.affiliation.EntityAffiliation;
+import org.kuali.rice.kim.api.identity.affiliation.EntityAffiliationContract;
 import org.kuali.rice.kim.impl.identity.PersonImpl;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.ObjectUtils;
@@ -27,6 +27,12 @@ import org.kuali.rice.krad.util.ObjectUtils;
 public class PortalFunctions {
 
 	//STAFF,FCLTY,AFLT, etc...
+    /**
+     * Determines if the given the currently logged in user has affiliations of the types specified in <code>types</code>
+     * 
+     * @param types comma separated list of affiliation types. It will get split.
+     * @param return true if the currently logged in user has ANY type in <code>types</code>. 
+     */
 	public static boolean showByAffiliateType(String types){
 		boolean success = false;
 		PersonImpl currentUser = (PersonImpl) GlobalVariables.getUserSession().getPerson();
@@ -45,4 +51,20 @@ public class PortalFunctions {
 		}
 		return success;
 	}
+
+    /**
+     * This is not like {@link #showByAffiliateType(String)}. It is not checking if a user has a specific affiliation. Rather
+     * it checks if the currently logged in user has any affiliation whatsoever. An affiliation is only valid if it is active.
+     *
+     * @return if the currently logged in user has an affiliation at all, or false otherwise.
+     */
+    public static boolean hasAffiliation() {
+		final PersonImpl currentUser = (PersonImpl) GlobalVariables.getUserSession().getPerson();
+        for (final EntityAffiliationContract affiliation : currentUser.getAffiliations()) {
+            if (affiliation.isActive()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
